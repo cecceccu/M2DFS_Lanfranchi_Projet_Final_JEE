@@ -1,6 +1,9 @@
 package com.weather.lanfranchi.alert.controller;
 
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +46,14 @@ public class WeatherAlertController {
         return cityCode;
     }
 
+    @ApiOperation(value = "Get alert forecasts for 1 day by city name", response = Iterable.class, tags = "getAlertForecasts")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "success | OK"),
+            @ApiResponse(code = 401, message = "error | Unauthorized"),
+            @ApiResponse(code = 403, message = "error | Forbidden"),
+            @ApiResponse(code = 404, message = "error | Not found"),
+            @ApiResponse(code = 500, message = "error | Internal server error (probably exceeded request limit)")
+    })
     @RequestMapping(value = "get1DayAlerts/{cityname}", method = RequestMethod.GET)
     public String get1DayWeatherAlerts(@PathVariable String cityname)
     {
@@ -52,6 +63,14 @@ public class WeatherAlertController {
         return response;
     }
 
+    @ApiOperation(value = "Get alert forecasts for 5 days by city name", response = Iterable.class, tags = "getAlertForecasts")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "success | OK"),
+            @ApiResponse(code = 401, message = "error | Unauthorized"),
+            @ApiResponse(code = 403, message = "error | Forbidden"),
+            @ApiResponse(code = 404, message = "error | Not found"),
+            @ApiResponse(code = 500, message = "error | Internal server error (probably exceeded request limit)")
+    })
     @RequestMapping(value = "get5DayAlerts/{cityname}", method = RequestMethod.GET)
     public String get5DayWeatherAlerts(@PathVariable String cityname)
     {

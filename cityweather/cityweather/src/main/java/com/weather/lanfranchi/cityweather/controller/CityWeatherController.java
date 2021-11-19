@@ -84,7 +84,7 @@ public class CityWeatherController {
         return response;
     }
 
-    @ApiOperation(value = "Get 1 day of weather forecasts for city", response = Iterable.class, tags = "get1DayWeatherForecasts")
+    @ApiOperation(value = "Get 1 day of weather forecasts for city", response = Iterable.class, tags = "getWeatherForecasts")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "success | OK"),
             @ApiResponse(code = 401, message = "error | Unauthorized"),
@@ -103,7 +103,7 @@ public class CityWeatherController {
     }
 
 
-    @ApiOperation(value = "Get 5 days of weather forecasts for city", response = Iterable.class, tags = "get5DayWeatherForecasts")
+    @ApiOperation(value = "Get 5 days of weather forecasts for city", response = Iterable.class, tags = "getWeatherForecasts")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "success | OK"),
             @ApiResponse(code = 401, message = "error | Unauthorized"),

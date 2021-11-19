@@ -62,8 +62,8 @@ public class CityWeatherServiceController {
         JSONObject jsonResponse = new JSONObject();
 
         String dateTime;
-        int minTemp;
-        int maxTemp;
+        double minTemp;
+        double maxTemp;
         String dayWeather;
         String nightWeather;
 
@@ -77,8 +77,15 @@ public class CityWeatherServiceController {
                     json = array.getJSONObject(i);
                     System.out.println(json.toString());
                     dateTime = json.getString("Date");
-                    minTemp = json.getJSONObject("Temperature").getJSONObject("Minimum").getInt("Value");
-                    maxTemp = json.getJSONObject("Temperature").getJSONObject("Maximum").getInt("Value");
+
+                    //-32 /1.8 to convert fahrenheit to celsius (values were already in celsius for current weather)
+                    minTemp = (json.getJSONObject("Temperature").getJSONObject("Minimum").getInt("Value")-32)/1.8;
+                    maxTemp = (json.getJSONObject("Temperature").getJSONObject("Maximum").getInt("Value")-32)/1.8;
+
+                    //Floor to 2 decimals to make json less ugly
+                    minTemp = Math.floor(minTemp * 100)/100;
+                    maxTemp = Math.floor(maxTemp * 100)/100;
+
                     dayWeather = json.getJSONObject("Day").getString("IconPhrase");
                     nightWeather = json.getJSONObject("Night").getString("IconPhrase");
 

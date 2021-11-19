@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.weather.lanfranchi</groupId>
-	<artifactId>cityweather</artifactId>
+	<artifactId>alert</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>cityweather</name>
-	<description>Microservice to retrieve current weather depending on city or zipcode</description>
+	<name>alert</name>
+	<description>Microservice to retrieve weather alerts</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
@@ -33,11 +33,11 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-commons</artifactId>
-            <version>3.0.4</version>
-        </dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-commons</artifactId>
+			<version>3.0.4</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-rest</artifactId>

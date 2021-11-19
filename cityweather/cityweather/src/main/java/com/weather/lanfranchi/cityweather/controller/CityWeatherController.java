@@ -22,14 +22,15 @@ import java.util.HashMap;
 @RestController
 public class CityWeatherController {
 
-    JSONObject jsonResponse;
-
     @Autowired
     RestTemplate restTemplate;
 
 
     public int getCityCode(String cityname)
     {
+
+        JSONObject jsonResponse;
+
         int cityCode = -1;
         String response = restTemplate.exchange("http://dataservice.accuweather.com/locations/v1/cities/search?apikey=28CM9CzJYA10F47nHbU7R7rTggEa3OCm&q={cityname}&language=fr-fr&details=false",
                 HttpMethod.GET, null, new ParameterizedTypeReference<String>() {}, cityname).getBody();

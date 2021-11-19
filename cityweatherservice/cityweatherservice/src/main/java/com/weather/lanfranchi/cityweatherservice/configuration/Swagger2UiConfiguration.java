@@ -1,4 +1,5 @@
-package com.weather.lanfranchi.marineweather.configuration;
+package com.weather.lanfranchi.cityweatherservice.configuration;
+
 
 import com.google.common.base.Predicates;
 import org.springframework.context.annotation.Bean;

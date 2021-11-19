@@ -49,12 +49,13 @@ public class CityWeatherController {
     }
 
 
-    @ApiOperation(value = "Get current weather by ", response = Iterable.class, tags = "getStudents")
+    @ApiOperation(value = "Get current weather by city code", response = Iterable.class, tags = "getCurrentWeather")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "success | OK"),
             @ApiResponse(code = 401, message = "error | Unauthorized"),
             @ApiResponse(code = 403, message = "error | Forbidden"),
-            @ApiResponse(code = 404, message = "error | Not found")
+            @ApiResponse(code = 404, message = "error | Not found"),
+            @ApiResponse(code = 500, message = "error | Internal server error (probably exceeded request limit)")
     })
     @RequestMapping(value = "getCurrentWeatherByCode/{code}", method = RequestMethod.GET)
     public String getWeatherByCode(@PathVariable int code)
@@ -64,6 +65,14 @@ public class CityWeatherController {
         return response;
     }
 
+    @ApiOperation(value = "Get current weather by city name", response = Iterable.class, tags = "getCurrentWeather")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "success | OK"),
+            @ApiResponse(code = 401, message = "error | Unauthorized"),
+            @ApiResponse(code = 403, message = "error | Forbidden"),
+            @ApiResponse(code = 404, message = "error | Not found"),
+            @ApiResponse(code = 500, message = "error | Internal server error (probably exceeded request limit)")
+    })
     @RequestMapping(value = "getCurrentWeatherByName/{cityname}", method = RequestMethod.GET)
     public String getWeatherByCode(@PathVariable String cityname)
     {
@@ -74,6 +83,14 @@ public class CityWeatherController {
         return response;
     }
 
+    @ApiOperation(value = "Get 1 day of weather forecasts for city", response = Iterable.class, tags = "get1DayWeatherForecasts")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "success | OK"),
+            @ApiResponse(code = 401, message = "error | Unauthorized"),
+            @ApiResponse(code = 403, message = "error | Forbidden"),
+            @ApiResponse(code = 404, message = "error | Not found"),
+            @ApiResponse(code = 500, message = "error | Internal server error (probably exceeded request limit)")
+    })
     @RequestMapping(value = "get1DayDailyForecasts/{cityname}", method = RequestMethod.GET)
     public String get1DayDailyForecasts(@PathVariable String cityname)
     {
@@ -84,6 +101,15 @@ public class CityWeatherController {
 
     }
 
+
+    @ApiOperation(value = "Get 5 days of weather forecasts for city", response = Iterable.class, tags = "get5DayWeatherForecasts")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "success | OK"),
+            @ApiResponse(code = 401, message = "error | Unauthorized"),
+            @ApiResponse(code = 403, message = "error | Forbidden"),
+            @ApiResponse(code = 404, message = "error | Not found"),
+            @ApiResponse(code = 500, message = "error | Internal server error (probably exceeded request limit)")
+    })
     @RequestMapping(value = "get5DayDailyForecasts/{cityname}", method = RequestMethod.GET)
     public String get5DayDailyForecasts(@PathVariable String cityname)
     {
@@ -93,6 +119,8 @@ public class CityWeatherController {
         return response;
 
     }
+
+    //10 day and 15 days forecasts are not available with a free API key
 
 
 

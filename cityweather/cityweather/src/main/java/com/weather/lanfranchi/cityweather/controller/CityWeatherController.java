@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
-@Api
+@Api (value = "Get current weather or forecast based on city name")
 @RestController
 public class CityWeatherController {
 

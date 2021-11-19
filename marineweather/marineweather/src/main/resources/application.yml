@@ -1,2 +1,4 @@
 server:
   port: 8084
+  servlet:
+    context-path: /marine-weather

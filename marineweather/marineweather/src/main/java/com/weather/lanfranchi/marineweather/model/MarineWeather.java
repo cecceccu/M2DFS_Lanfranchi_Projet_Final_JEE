@@ -37,10 +37,10 @@ public class MarineWeather {
 
     @Override
     public String toString() {
-        return "MarineWeather{" +
-                "windSpeed=" + windSpeed +
-                ", swellHeight=" + swellHeight +
-                ", waveHeight=" + waveHeight +
-                '}';
+        return "{" +
+                "windSpeed:" + windSpeed +
+                ", swellHeight:" + swellHeight +
+                ", waveHeight:" + waveHeight +
+                "}";
     }
 }

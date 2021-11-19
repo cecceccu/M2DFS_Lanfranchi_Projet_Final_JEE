@@ -69,10 +69,10 @@ public class AlertServiceController {
                 HttpMethod.GET, null, new ParameterizedTypeReference<String>() {},cityname ).getBody();
 
 
-        return alertsToJSON(response, cityname, 1).toString();
+        return alertsToJSON(response, cityname, 1);
     }
 
-    @ApiOperation(value = "Get 1 day alerts for city", response = Iterable.class, tags = "alerts")
+    @ApiOperation(value = "Get 5 day alerts for city", response = Iterable.class, tags = "alerts")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "success | OK"),
             @ApiResponse(code = 401, message = "error | Unauthorized"),
@@ -88,7 +88,7 @@ public class AlertServiceController {
                 HttpMethod.GET, null, new ParameterizedTypeReference<String>() {},cityname ).getBody();
 
 
-        return alertsToJSON(response, cityname, 5).toString();
+        return alertsToJSON(response, cityname, 5);
     }
 
 

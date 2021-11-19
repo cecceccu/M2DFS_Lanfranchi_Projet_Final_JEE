@@ -32,7 +32,7 @@ public class CityWeatherController {
         JSONObject jsonResponse;
 
         int cityCode = -1;
-        String response = restTemplate.exchange("http://dataservice.accuweather.com/locations/v1/cities/search?apikey=28CM9CzJYA10F47nHbU7R7rTggEa3OCm&q={cityname}&language=fr-fr&details=false",
+        String response = restTemplate.exchange("http://dataservice.accuweather.com/locations/v1/cities/search?apikey=897CIDArPw0AGPjtaxVSuQLEC7A4vaY7&q={cityname}&language=fr-fr&details=false",
                 HttpMethod.GET, null, new ParameterizedTypeReference<String>() {}, cityname).getBody();
 
         // Remove leading and trailing [] to get a proper JSON
@@ -61,7 +61,7 @@ public class CityWeatherController {
     @RequestMapping(value = "getCurrentWeatherByCode/{code}", method = RequestMethod.GET)
     public String getWeatherByCode(@PathVariable int code)
     {
-        String response = restTemplate.exchange("http://dataservice.accuweather.com/currentconditions/v1/{code}?apikey=28CM9CzJYA10F47nHbU7R7rTggEa3OCm&language=fr-fr&details=false",
+        String response = restTemplate.exchange("http://dataservice.accuweather.com/currentconditions/v1/{code}?apikey=897CIDArPw0AGPjtaxVSuQLEC7A4vaY7&language=fr-fr&details=false",
                 HttpMethod.GET, null, new ParameterizedTypeReference<String>() {}, code).getBody();
         return response;
     }
@@ -79,7 +79,7 @@ public class CityWeatherController {
     {
         int code = this.getCityCode(cityname);
 
-        String response = restTemplate.exchange("http://dataservice.accuweather.com/currentconditions/v1/{code}?apikey=28CM9CzJYA10F47nHbU7R7rTggEa3OCm&language=fr-fr&details=false",
+        String response = restTemplate.exchange("http://dataservice.accuweather.com/currentconditions/v1/{code}?apikey=897CIDArPw0AGPjtaxVSuQLEC7A4vaY7&language=fr-fr&details=false",
                 HttpMethod.GET, null, new ParameterizedTypeReference<String>() {}, code).getBody();
         return response;
     }
@@ -96,7 +96,7 @@ public class CityWeatherController {
     public String get1DayDailyForecasts(@PathVariable String cityname)
     {
         int code = this.getCityCode(cityname);
-        String response = restTemplate.exchange("http://dataservice.accuweather.com/forecasts/v1/daily/1day/{code}?apikey=28CM9CzJYA10F47nHbU7R7rTggEa3OCm&language=en-us&details=false",
+        String response = restTemplate.exchange("http://dataservice.accuweather.com/forecasts/v1/daily/1day/{code}?apikey=897CIDArPw0AGPjtaxVSuQLEC7A4vaY7&language=en-us&details=false",
                 HttpMethod.GET, null, new ParameterizedTypeReference<String>() {}, code).getBody();
         return response;
 
@@ -115,7 +115,7 @@ public class CityWeatherController {
     public String get5DayDailyForecasts(@PathVariable String cityname)
     {
         int code = this.getCityCode(cityname);
-        String response = restTemplate.exchange("http://dataservice.accuweather.com/forecasts/v1/daily/5day/{code}?apikey=28CM9CzJYA10F47nHbU7R7rTggEa3OCm&language=en-us&details=false",
+        String response = restTemplate.exchange("http://dataservice.accuweather.com/forecasts/v1/daily/5day/{code}?apikey=897CIDArPw0AGPjtaxVSuQLEC7A4vaY7&language=en-us&details=false",
                 HttpMethod.GET, null, new ParameterizedTypeReference<String>() {}, code).getBody();
         return response;
 

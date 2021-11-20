@@ -1,5 +1,6 @@
 package com.weather.lanfranchi.marineservice.controller;
 
+import com.weather.lanfranchi.marineservice.delegate.MarineServiceDelegate;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -24,41 +25,7 @@ import org.springframework.web.client.RestTemplate;
 public class MarineServiceController {
 
     @Autowired
-    RestTemplate restTemplate;
-
-    private String marineWeatherToJSON(String response)
-    {
-        JSONObject jsonResponse = new JSONObject();
-
-
-        int windSpeed;
-        int waveHeight;
-        int swellHeight;
-
-
-        try {
-
-            JSONObject json = new JSONObject(response);
-
-            windSpeed = json.getInt("windSpeed");
-            waveHeight = json.getInt("waveHeight");
-            swellHeight = json.getInt("swellHeight");
-
-            jsonResponse.put("Wind speed", windSpeed);
-            jsonResponse.put("Wave height", waveHeight);
-            jsonResponse.put("Swell height", swellHeight);
-
-
-        }catch (JSONException err){
-            System.out.println("There was an errror while retrieving data");
-        }
-
-
-        return jsonResponse.toString();
-    }
-
-
-
+    MarineServiceDelegate marineServiceDelegate;
 
     @ApiOperation(value = "Get marine weather for coordinates", response = Iterable.class, tags = "marineWeather")
     @ApiResponses(value = {
@@ -72,20 +39,7 @@ public class MarineServiceController {
     public String marineWeather(@PathVariable int lng, @PathVariable int lat)
     {
 
-        String response = restTemplate.exchange("http://marine-weather/getMarineWeather/{lng}/{lat}",
-                HttpMethod.GET, null, new ParameterizedTypeReference<String>() {}, lng, lat ).getBody();
-
-
-        return marineWeatherToJSON(response);
-    }
-
-
-
-
-    @Bean
-    @LoadBalanced
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
+        return marineServiceDelegate.marineWeather(lng, lat);
     }
 
 }

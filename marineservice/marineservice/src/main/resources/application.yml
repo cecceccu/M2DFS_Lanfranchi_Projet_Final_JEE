@@ -1,7 +1,5 @@
 server:
   port: 8282
-  servlet:
-    context-path: /display-marine-weather
 
 eureka:
   instance:

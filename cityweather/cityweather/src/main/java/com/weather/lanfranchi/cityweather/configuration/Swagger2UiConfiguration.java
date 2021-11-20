@@ -20,7 +20,7 @@ public class Swagger2UiConfiguration extends WebMvcConfigurerAdapter {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(Predicates.not(RequestHandlerSelectors.basePackage("org.springframework.boot")))
+                .apis(RequestHandlerSelectors.basePackage("com.weather.lanfranchi.cityweather.controller"))
                 .build()
                 ;
     }

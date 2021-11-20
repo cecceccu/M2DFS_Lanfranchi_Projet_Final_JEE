@@ -1,5 +1,6 @@
 package com.weather.lanfranchi.alertservice.controller;
 
+import com.weather.lanfranchi.alertservice.delegate.AlertServiceDelegate;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -24,7 +25,7 @@ import org.springframework.web.client.RestTemplate;
 public class AlertServiceController {
 
     @Autowired
-    RestTemplate restTemplate;
+    AlertServiceDelegate alertServiceDelegate;
 
     private String alertsToJSON(String response, String city, int days)
     {
@@ -64,12 +65,7 @@ public class AlertServiceController {
     @RequestMapping(value = "/1DayAlerts/{cityname}", method = RequestMethod.GET)
     public String oneDayAlerts(@PathVariable String cityname)
     {
-
-        String response = restTemplate.exchange("http://weather-alerts/get1DayAlerts/{cityname}",
-                HttpMethod.GET, null, new ParameterizedTypeReference<String>() {},cityname ).getBody();
-
-
-        return alertsToJSON(response, cityname, 1);
+        return alertServiceDelegate.oneDayAlerts(cityname);
     }
 
     @ApiOperation(value = "Get 5 day alerts for city", response = Iterable.class, tags = "alerts")
@@ -84,19 +80,11 @@ public class AlertServiceController {
     public String fiveDayAlerts(@PathVariable String cityname)
     {
 
-        String response = restTemplate.exchange("http://weather-alerts/get5DayAlerts/{cityname}",
-                HttpMethod.GET, null, new ParameterizedTypeReference<String>() {},cityname ).getBody();
-
-
-        return alertsToJSON(response, cityname, 5);
+        return alertServiceDelegate.fiveDayAlerts(cityname);
     }
 
 
 
 
-    @Bean
-    @LoadBalanced
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
+
 }

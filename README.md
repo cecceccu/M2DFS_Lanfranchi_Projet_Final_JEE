@@ -1,5 +1,7 @@
 # M2DFS_Lanfranchi_Projet_Final_JEE
 
+NOTE : You may want to change the apiKey attribute in the CityWeatherDelegate and WeatherAlertDelegate classes, as it is highly likely that it will have exceeded the maximum number of requests. 
+
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Almost all the features have been implemented : 

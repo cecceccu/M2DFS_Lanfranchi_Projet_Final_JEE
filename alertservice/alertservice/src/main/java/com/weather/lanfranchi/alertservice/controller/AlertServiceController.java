@@ -27,32 +27,6 @@ public class AlertServiceController {
     @Autowired
     AlertServiceDelegate alertServiceDelegate;
 
-    private String alertsToJSON(String response, String city, int days)
-    {
-        JSONObject jsonResponse = null;
-
-
-        try {
-
-            //We check if response only contains empty array or JSON object
-            if (response.length()<=2)
-            {
-                jsonResponse = new JSONObject();
-                jsonResponse.put("Message", "No alerts were found for " + city + " for the next "
-                + days + " days");
-            }
-
-
-        }catch (JSONException err){
-            System.out.println("There was an errror while retrieving data");
-        }
-
-
-        return jsonResponse!=null?jsonResponse.toString():response;
-    }
-
-
-
 
     @ApiOperation(value = "Get 1 day alerts for city", response = Iterable.class, tags = "alerts")
     @ApiResponses(value = {

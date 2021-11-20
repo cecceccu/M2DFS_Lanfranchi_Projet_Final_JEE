@@ -1,5 +1,6 @@
 package com.weather.lanfranchi.cityweather.controller;
 
+import com.weather.lanfranchi.cityweather.delegate.CityWeatherDelegate;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -21,33 +22,8 @@ import java.util.HashMap;
 @Api (value = "Get current weather or forecast based on city name")
 @RestController
 public class CityWeatherController {
-
     @Autowired
-    RestTemplate restTemplate;
-
-
-    public int getCityCode(String cityname)
-    {
-
-        JSONObject jsonResponse;
-
-        int cityCode = -1;
-        String response = restTemplate.exchange("http://dataservice.accuweather.com/locations/v1/cities/search?apikey=Mdp9sTLXNbG9wehD24V7VclZNYGJtB3w&q={cityname}&language=fr-fr&details=false",
-                HttpMethod.GET, null, new ParameterizedTypeReference<String>() {}, cityname).getBody();
-
-        // Remove leading and trailing [] to get a proper JSON
-        response = response.substring(1, response.length() -1);
-
-        try {
-            jsonResponse = new JSONObject(response);
-            cityCode = jsonResponse.getInt("Key");
-        }catch (JSONException err){
-            System.out.println("There was an errror while retrieving data");
-        }
-
-        System.out.println(cityCode);
-        return cityCode;
-    }
+    CityWeatherDelegate cityWeatherDelegate;
 
 
     @ApiOperation(value = "Get current weather by city code", response = Iterable.class, tags = "getCurrentWeather")
@@ -61,9 +37,7 @@ public class CityWeatherController {
     @RequestMapping(value = "getCurrentWeatherByCode/{code}", method = RequestMethod.GET)
     public String getWeatherByCode(@PathVariable int code)
     {
-        String response = restTemplate.exchange("http://dataservice.accuweather.com/currentconditions/v1/{code}?apikey=Mdp9sTLXNbG9wehD24V7VclZNYGJtB3w&language=fr-fr&details=false",
-                HttpMethod.GET, null, new ParameterizedTypeReference<String>() {}, code).getBody();
-        return response;
+        return cityWeatherDelegate.getWeatherByCode(code);
     }
 
     @ApiOperation(value = "Get current weather by city name", response = Iterable.class, tags = "getCurrentWeather")
@@ -75,13 +49,9 @@ public class CityWeatherController {
             @ApiResponse(code = 500, message = "error | Internal server error (probably exceeded request limit)")
     })
     @RequestMapping(value = "getCurrentWeatherByName/{cityname}", method = RequestMethod.GET)
-    public String getWeatherByCode(@PathVariable String cityname)
+    public String getWeatherByName(@PathVariable String cityname)
     {
-        int code = this.getCityCode(cityname);
-
-        String response = restTemplate.exchange("http://dataservice.accuweather.com/currentconditions/v1/{code}?apikey=Mdp9sTLXNbG9wehD24V7VclZNYGJtB3w&language=fr-fr&details=false",
-                HttpMethod.GET, null, new ParameterizedTypeReference<String>() {}, code).getBody();
-        return response;
+        return cityWeatherDelegate.getWeatherByName(cityname);
     }
 
     @ApiOperation(value = "Get 1 day of weather forecasts for city", response = Iterable.class, tags = "getWeatherForecasts")
@@ -95,11 +65,7 @@ public class CityWeatherController {
     @RequestMapping(value = "get1DayDailyForecasts/{cityname}", method = RequestMethod.GET)
     public String get1DayDailyForecasts(@PathVariable String cityname)
     {
-        int code = this.getCityCode(cityname);
-        String response = restTemplate.exchange("http://dataservice.accuweather.com/forecasts/v1/daily/1day/{code}?apikey=Mdp9sTLXNbG9wehD24V7VclZNYGJtB3w&language=en-us&details=false",
-                HttpMethod.GET, null, new ParameterizedTypeReference<String>() {}, code).getBody();
-        return response;
-
+         return cityWeatherDelegate.get1DayDailyForecasts(cityname);
     }
 
 
@@ -114,23 +80,11 @@ public class CityWeatherController {
     @RequestMapping(value = "get5DayDailyForecasts/{cityname}", method = RequestMethod.GET)
     public String get5DayDailyForecasts(@PathVariable String cityname)
     {
-        int code = this.getCityCode(cityname);
-        String response = restTemplate.exchange("http://dataservice.accuweather.com/forecasts/v1/daily/5day/{code}?apikey=Mdp9sTLXNbG9wehD24V7VclZNYGJtB3w&language=en-us&details=false",
-                HttpMethod.GET, null, new ParameterizedTypeReference<String>() {}, code).getBody();
-        return response;
-
+        return cityWeatherDelegate.get5DayDailyForecasts(cityname);
     }
 
     //10 day and 15 days forecasts are not available with a free API key
 
 
-
-
-
-
-    @Bean
-    public RestTemplate restTemplate(){
-        return new RestTemplate();
-    }
 
 }

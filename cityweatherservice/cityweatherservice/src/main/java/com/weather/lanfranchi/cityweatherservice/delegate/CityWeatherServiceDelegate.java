@@ -20,7 +20,7 @@ public class CityWeatherServiceDelegate {
     @Autowired
     RestTemplate restTemplate;
 
-    private JSONObject currentWeatherResponseToJSON(String response)
+    public JSONObject currentWeatherResponseToJSON(String response)
     {
         JSONObject jsonResponse = new JSONObject();
 
@@ -50,7 +50,7 @@ public class CityWeatherServiceDelegate {
         return jsonResponse;
     }
 
-    private JSONObject forecastsToJSON(String response, int days)
+    public JSONObject forecastsToJSON(String response, int days)
     {
         JSONObject jsonResponse = new JSONObject();
 

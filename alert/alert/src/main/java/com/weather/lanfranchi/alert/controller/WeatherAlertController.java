@@ -1,6 +1,7 @@
 package com.weather.lanfranchi.alert.controller;
 
 
+import com.weather.lanfranchi.alert.delegate.WeatherAlertDelegate;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -22,31 +23,8 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 public class WeatherAlertController {
 
-
     @Autowired
-    RestTemplate restTemplate;
-
-    public int getCityCode(String cityname)
-    {
-        JSONObject jsonResponse;
-
-        int cityCode = -1;
-        String response = restTemplate.exchange("http://dataservice.accuweather.com/locations/v1/cities/search?apikey=Mdp9sTLXNbG9wehD24V7VclZNYGJtB3w&q={cityname}&language=fr-fr&details=false",
-                HttpMethod.GET, null, new ParameterizedTypeReference<String>() {}, cityname).getBody();
-
-        // Remove leading and trailing [] to get a proper JSON
-        response = response.substring(1, response.length() -1);
-
-        try {
-            jsonResponse = new JSONObject(response);
-            cityCode = jsonResponse.getInt("Key");
-        }catch (JSONException err){
-            System.out.println("There was an errror while retrieving data");
-        }
-
-        System.out.println(cityCode);
-        return cityCode;
-    }
+    WeatherAlertDelegate weatherAlertDelegate;
 
     @ApiOperation(value = "Get alert forecasts for 1 day by city name", response = Iterable.class, tags = "getAlertForecasts")
     @ApiResponses(value = {
@@ -59,10 +37,7 @@ public class WeatherAlertController {
     @RequestMapping(value = "get1DayAlerts/{cityname}", method = RequestMethod.GET)
     public String get1DayWeatherAlerts(@PathVariable String cityname)
     {
-        int code = this.getCityCode(cityname);
-        String response = restTemplate.exchange("http://dataservice.accuweather.com/alarms/v1/1day/{code}?apikey=Mdp9sTLXNbG9wehD24V7VclZNYGJtB3w",
-                HttpMethod.GET, null, new ParameterizedTypeReference<String>() {}, code).getBody();
-        return response;
+        return weatherAlertDelegate.get1DayWeatherAlerts(cityname);
     }
 
     @ApiOperation(value = "Get alert forecasts for 5 days by city name", response = Iterable.class, tags = "getAlertForecasts")
@@ -76,14 +51,6 @@ public class WeatherAlertController {
     @RequestMapping(value = "get5DayAlerts/{cityname}", method = RequestMethod.GET)
     public String get5DayWeatherAlerts(@PathVariable String cityname)
     {
-        int code = this.getCityCode(cityname);
-        String response = restTemplate.exchange("http://dataservice.accuweather.com/alarms/v1/1day/{code}?apikey=Mdp9sTLXNbG9wehD24V7VclZNYGJtB3w",
-                HttpMethod.GET, null, new ParameterizedTypeReference<String>() {}, code).getBody();
-        return response;
-    }
-
-    @Bean
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
+        return weatherAlertDelegate.get5DayWeatherAlerts(cityname);
     }
 }

@@ -23,7 +23,7 @@ Client endpoints (which should normally be used):
     - curl -X GET --header 'Accept: text/plain' 'http://localhost:8280/1DayForecasts/{cityname}'
     - curl -X GET --header 'Accept: text/plain' 'http://localhost:8280/5DayForecasts/{cityname}'
   - Marine weather:
-   - curl -X GET --header 'Accept: application/json' 'http://192.168.1.176:8282/marineWeather/{lng}/{lat}'
+   - curl -X GET --header 'Accept: application/json' 'http://localhost:8282/marineWeather/{lng}/{lat}'
    - http://localhost:8282/marineWeatherPort : this endpoint just returns the port of the server that handled the request, it is only here to help testing ribbon loadbalancing
 
 

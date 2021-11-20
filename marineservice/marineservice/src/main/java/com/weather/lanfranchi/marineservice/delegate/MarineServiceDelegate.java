@@ -61,10 +61,26 @@ public class MarineServiceDelegate {
         return marineWeatherToJSON(response);
     }
 
+
+    //This is a test endpoint to check if ribbon loadBalancing works, it should be removed
+    //in production, but I let it here to make your testing easier
+    @HystrixCommand(fallbackMethod = "portGetErrorFallbackService")
+    public String marineWeatherPort()
+    {
+        return restTemplate.exchange("http://marine-weather/marineWeather/getPort",
+                HttpMethod.GET, null, new ParameterizedTypeReference<String>() {}, (Object) null).getBody();
+    }
+
     private String marineWeatherApiErrorFallbackService(int lng, int  lat)
     {
         return "Circuit breaker open, displaying default marine weather : {" +
                 "Wind speed : 10 km/h, Wave Height : 60cm, Swell Height : 40cm}";
+    }
+
+    private String portGetErrorFallbackService()
+    {
+        return "Circuit breaker open, could not retrieve port of server, here is a placeholder" +
+                "instead : 1234";
     }
 
     @Bean

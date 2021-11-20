@@ -7,6 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -15,6 +16,19 @@ import java.util.stream.Collectors;
 @Api(value = "Get current weather or forecast based on city name")
 @RestController
 public class MarineWeatherController {
+
+
+    /* We will show that ribbon load balancing works when the MarineService client calls
+    * this api because it does not use AccuWeather, thus
+    * spamming requests here won't make the free trial expire.*/
+    @Value("${server.port}")
+    String port;
+
+    @RequestMapping(value = "marineWeather/getPort", method = RequestMethod.GET)
+    public String getPort()
+    {
+        return port;
+    }
 
 
     //Static DB because API is broken

@@ -42,4 +42,12 @@ public class MarineServiceController {
         return marineServiceDelegate.marineWeather(lng, lat);
     }
 
+    //As explained in the delegate class, this endpoint is only here to make ribbon loadBalancing
+    //easier, and I only let it here to make your end of the testing easier
+    @RequestMapping(value = "marineWeatherPort", method = RequestMethod.GET)
+    public String marineWeatherPort()
+    {
+        return marineServiceDelegate.marineWeatherPort();
+    }
+
 }

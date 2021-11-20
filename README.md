@@ -1,6 +1,8 @@
 # M2DFS_Lanfranchi_Projet_Final_JEE
 List of endpoints:
 
+Eureka Dashboard : http://localhost:8761/
+
 Backend endpoints (should not be called directly in normal use cases):
   - Weather alert forecasts for hikers:
       - curl -X GET --header 'Accept: text/plain' 'http://localhost:8083/get1DayAlerts/{cityname}'

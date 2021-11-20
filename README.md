@@ -1,4 +1,25 @@
 # M2DFS_Lanfranchi_Projet_Final_JEE
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Almost all the features have been implemented : 
+
+3 rest controller services that fetch data from the API (current weather and forecasts in a city, weather alarms in a city, and marine weather at given coordinates (this controller uses a cutsom database since the API was not working properly)).
+
+3 client services have been implemented to properly format the data returned by each controller.
+
+All the services are monitored on a eureka server, can register to this server, and all the services can be discovered by any other service.
+
+Circuit breakers have been implemented on every client and on every controller except the one that doesn't use the API (MarineWeather, but MarineService does have a circuit breaker)
+
+Ribbon loadBalancing has been implemented as well between the clients and the rest controllers.
+
+The only missing features are the CRUD operations, as I could not really conceptualize how to implement them on an application that is only able to fetch data.
+
+Finally, due to many dependencies and runtime errors that I was not able to fix after multiple hours, I was unable to run any test suite, so I couldn't properly test the application.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 List of endpoints:
 
 Eureka Dashboard : http://localhost:8761/
